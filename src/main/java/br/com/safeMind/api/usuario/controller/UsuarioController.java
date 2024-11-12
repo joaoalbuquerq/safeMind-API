@@ -36,7 +36,7 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.pesquisarPorId(id));
     }
 
-    @GetMapping("/{cpf}")
+    @GetMapping("/cpf/{cpf}")
     public ResponseEntity<Usuario> pesquisarPorCpf(@PathVariable("cpf") String cpf){
         return ResponseEntity.ok(usuarioService.pesquisarPorCpf(cpf));
     }
