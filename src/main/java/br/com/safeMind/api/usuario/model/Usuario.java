@@ -1,5 +1,6 @@
 package br.com.safeMind.api.usuario.model;
 
+import br.com.safeMind.api.usuario.dto.UsuarioAtualizacaoDTO;
 import br.com.safeMind.api.usuario.dto.UsuarioCadastroDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -91,5 +92,11 @@ public class Usuario {
 
     public void setUltimaAlteracao(LocalDateTime ultimaAlteracao) {
         this.ultimaAlteracao = ultimaAlteracao;
+    }
+
+    public void atualizarDados(UsuarioAtualizacaoDTO dto) {
+        this.nome = dto.nome();
+        this.email = dto.email();
+        this.ultimaAlteracao = LocalDateTime.now();
     }
 }
