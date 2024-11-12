@@ -92,6 +92,16 @@ public class UsuarioRepositoryTest {
         assertTrue(usuarioDeletado.isEmpty());
     }
 
+    @DisplayName("Deve pesquisar um usuário pelo seu CPF")
+    @Test
+    void devePesquisarUmUsuarioPeloSeuCPF() {
+        var user = usuarioRepository.save(UtilitiesTest.montarObjetoUsuarioValido());
+        var usuarioPesquisado = usuarioRepository.findByCpf(user.getCpf()).get();
 
+        assertNotNull(usuarioPesquisado);
+        assertNotNull(usuarioPesquisado.getId());
+        assertNotNull(usuarioPesquisado.getCpf());
+        assertEquals(usuarioPesquisado.getCpf(), user.getCpf());
+    }
 
 }

@@ -43,4 +43,8 @@ public class UsuarioService {
     public void deletarTodosUsuarios() {
         usuarioRepository.deleteAll();
     }
+
+    public Usuario pesquisarPorCpf(String cpf) {
+        return usuarioRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException());
+    }
 }

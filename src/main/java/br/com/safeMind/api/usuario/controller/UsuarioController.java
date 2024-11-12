@@ -31,17 +31,22 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.listar());
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Usuario> pesquisarPorId(@PathVariable("id") UUID id){
         return ResponseEntity.ok(usuarioService.pesquisarPorId(id));
     }
 
-    @PatchMapping("{id}")
+    @GetMapping("/{cpf}")
+    public ResponseEntity<Usuario> pesquisarPorCpf(@PathVariable("cpf") String cpf){
+        return ResponseEntity.ok(usuarioService.pesquisarPorCpf(cpf));
+    }
+
+    @PatchMapping("/{id}")
     public ResponseEntity<Usuario> atualizarPorId(@PathVariable("id") UUID id, @RequestBody UsuarioAtualizacaoDTO dto){
         return ResponseEntity.ok(usuarioService.atualizar(id, dto));
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> removerPorId(@PathVariable("id") UUID id){
         usuarioService.deletarUsuarioPorId(id);
         return ResponseEntity.noContent().build();
