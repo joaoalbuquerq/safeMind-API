@@ -1,5 +1,6 @@
 package br.com.safeMind.api.usuario.service;
 
+import br.com.safeMind.api.comon.exception.RecursoNaoEncontradoException;
 import br.com.safeMind.api.usuario.dto.UsuarioAtualizacaoDTO;
 import br.com.safeMind.api.usuario.dto.UsuarioCadastroDTO;
 import br.com.safeMind.api.usuario.model.Usuario;
@@ -26,7 +27,7 @@ public class UsuarioService {
     }
 
     public Usuario pesquisarPorId(UUID id) {
-        return usuarioRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        return usuarioRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário inexistente"));
     }
 
     public Usuario atualizar(UUID id, UsuarioAtualizacaoDTO dto) {
@@ -45,6 +46,6 @@ public class UsuarioService {
     }
 
     public Usuario pesquisarPorCpf(String cpf) {
-        return usuarioRepository.findByCpf(cpf).orElseThrow(() -> new EntityNotFoundException());
+        return usuarioRepository.findByCpf(cpf).orElseThrow(() -> new RecursoNaoEncontradoException("CPF inexistente"));
     }
 }
