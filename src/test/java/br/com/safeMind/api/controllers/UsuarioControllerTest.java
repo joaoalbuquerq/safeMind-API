@@ -57,7 +57,7 @@ public class UsuarioControllerTest {
 
     @DisplayName("Deve retornar 400 quando não for informado um campo obrigatório")
     @Test
-    void deveRetornar400QuandoNaoForInformadoCampoObrigatorio() throws Exception {
+    void deveRetornar400QuandoForInformadoDtoInvalido() throws Exception {
         UsuarioCadastroDTO dto = new UsuarioCadastroDTO("", "12345678901", "joao@gmail.com", LocalDate.of(2020, 5, 20));
         String dtoJson = objectMapper.writeValueAsString(dto);
 
@@ -66,8 +66,8 @@ public class UsuarioControllerTest {
                         .contentType("application/json")
                         .content(dtoJson))
                 .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$[0].field").value("nome"))
-                .andExpect(jsonPath("$[0].defaultMessage").value("O nome é obrigatório"));
+                .andExpect(jsonPath("$[0].campo").value("nome"))
+                .andExpect(jsonPath("$[0].mensagem").value("O nome é obrigatório"));
 
 
     }
