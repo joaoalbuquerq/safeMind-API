@@ -1,5 +1,6 @@
 package br.com.safeMind.api.teste.service;
 
+import br.com.safeMind.api.comon.exception.RecursoNaoEncontradoException;
 import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
 import br.com.safeMind.api.teste.model.Teste;
 import br.com.safeMind.api.teste.repository.TesteRepository;
@@ -28,6 +29,6 @@ public class TesteService {
     }
 
     public Teste pesquisarPorId(UUID id) {
-        return testeRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
+        return testeRepository.findById(id).orElseThrow(() -> new RecursoNaoEncontradoException("Teste inexistente"));
     }
 }
