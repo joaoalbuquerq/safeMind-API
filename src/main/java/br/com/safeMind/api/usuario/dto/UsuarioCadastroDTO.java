@@ -17,4 +17,5 @@ public record UsuarioCadastroDTO(
         @Past
         LocalDate dataNascimento
 ) {
+
 }

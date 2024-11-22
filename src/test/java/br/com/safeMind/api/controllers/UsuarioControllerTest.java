@@ -1,6 +1,7 @@
 package br.com.safeMind.api.controllers;
 
 import br.com.safeMind.api.Util.UtilitiesTest;
+import br.com.safeMind.api.comon.exception.RecursoNaoEncontradoException;
 import br.com.safeMind.api.usuario.controller.UsuarioController;
 import br.com.safeMind.api.usuario.dto.UsuarioCadastroDTO;
 import br.com.safeMind.api.usuario.model.Usuario;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +23,7 @@ import java.util.UUID;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UsuarioController.class)
@@ -52,6 +55,23 @@ public class UsuarioControllerTest {
                 .andExpect(status().isCreated());
     }
 
+    @DisplayName("Deve retornar 400 quando não for informado um campo obrigatório")
+    @Test
+    void deveRetornar400QuandoNaoForInformadoCampoObrigatorio() throws Exception {
+        UsuarioCadastroDTO dto = new UsuarioCadastroDTO("", "12345678901", "joao@gmail.com", LocalDate.of(2020, 5, 20));
+        String dtoJson = objectMapper.writeValueAsString(dto);
+
+        // Act & Assert: Envia a requisição e valida o resultado
+        mockMvc.perform(post("/usuario")
+                        .contentType("application/json")
+                        .content(dtoJson))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$[0].field").value("nome"))
+                .andExpect(jsonPath("$[0].defaultMessage").value("O nome é obrigatório"));
+
+
+    }
+
     @DisplayName("Deve retornar 200 quando um usuário for pesquisado por id e encontrado")
     @Test
     void deveRetornar200QuandoForPesquisadoUmUsuarioPeloIdComSucesso() throws Exception {
@@ -73,7 +93,7 @@ public class UsuarioControllerTest {
     @Test
     void deveRetornar404QuandoForEncontradoUmUsuario() throws Exception {
         var usuario = UtilitiesTest.montarObjetoUsuarioComId();
-        when(usuarioService.pesquisarPorCpf(usuario.getCpf())).thenThrow(new EntityNotFoundException());
+        when(usuarioService.pesquisarPorCpf(usuario.getCpf())).thenThrow(new RecursoNaoEncontradoException("Usuário não contrado"));
 
         mockMvc.perform(get("/usuario/cpf/" + usuario.getCpf())).andExpect(status().isNotFound());
     }
