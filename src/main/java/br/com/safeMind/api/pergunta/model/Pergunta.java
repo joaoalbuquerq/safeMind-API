@@ -1,48 +1,39 @@
-package br.com.safeMind.api.teste.model;
+package br.com.safeMind.api.pergunta.model;
 
-import br.com.safeMind.api.pergunta.model.Pergunta;
-import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
+import br.com.safeMind.api.pergunta.dto.DadosCadastroPergunta;
+import br.com.safeMind.api.teste.model.Teste;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Entity
-public class Teste {
+public class Pergunta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    private String nome;
-    private String descricao;
 
-    @OneToMany(mappedBy = "teste", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pergunta> perguntas;
+    @ManyToOne
+    @JoinColumn(name = "teste_id", nullable = false)
+    @JsonIgnore
+    private Teste teste;
+
+    private String descricao;
     private LocalDate dataCriacao;
     private LocalDateTime ultimaAlteracao;
 
-    public Teste(){
+    public Pergunta() {
         super();
     }
 
-    public Teste(DadosCadastroTesteDTO dto) {
-        this.nome = dto.nome();
-        this.descricao = dto.descricao();
+    public Pergunta(DadosCadastroPergunta dto, Teste teste) {
+        this.descricao= dto.descricao();
+        this.teste = teste;
         this.dataCriacao = LocalDate.now();
         this.ultimaAlteracao = LocalDateTime.now();
-    }
-
-    public List<Pergunta> getPerguntas() {
-        return perguntas;
-    }
-    public void setPerguntas(List<Pergunta> perguntas) {
-        this.perguntas = perguntas;
-    }
-
-    public void adicionarPergunta(Pergunta pergunta) {
-        this.perguntas.add(pergunta);
     }
 
     public UUID getId() {
@@ -53,12 +44,12 @@ public class Teste {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public Teste getTeste() {
+        return teste;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTeste(Teste teste) {
+        this.teste = teste;
     }
 
     public String getDescricao() {
