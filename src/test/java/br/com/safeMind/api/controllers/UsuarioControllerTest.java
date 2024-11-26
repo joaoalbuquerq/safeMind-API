@@ -7,17 +7,14 @@ import br.com.safeMind.api.usuario.dto.UsuarioCadastroDTO;
 import br.com.safeMind.api.usuario.model.Usuario;
 import br.com.safeMind.api.usuario.service.UsuarioService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.mockito.Mockito.when;
@@ -91,7 +88,7 @@ public class UsuarioControllerTest {
 
     @DisplayName("Deve retornar 404 quando não for encontrado um usuário")
     @Test
-    void deveRetornar404QuandoForEncontradoUmUsuario() throws Exception {
+    void deveRetornar404QuandoNaoForEncontradoUmUsuario() throws Exception {
         var usuario = UtilitiesTest.montarObjetoUsuarioComId();
         when(usuarioService.pesquisarPorCpf(usuario.getCpf())).thenThrow(new RecursoNaoEncontradoException("Usuário não contrado"));
 
