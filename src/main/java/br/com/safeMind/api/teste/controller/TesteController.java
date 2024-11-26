@@ -1,5 +1,6 @@
 package br.com.safeMind.api.teste.controller;
 
+import br.com.safeMind.api.pergunta.model.Pergunta;
 import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
 import br.com.safeMind.api.teste.dto.TesteAtualizacaoDTO;
 import br.com.safeMind.api.teste.model.Teste;
@@ -28,6 +29,11 @@ public class TesteController {
     @GetMapping
     public ResponseEntity<List<Teste>> listar(){
         return ResponseEntity.ok(testeService.listar());
+    }
+
+    @GetMapping("/{id}/perguntas")
+    public ResponseEntity<List<Pergunta>> listarPerguntasTeste(@PathVariable UUID id){
+        return ResponseEntity.ok(testeService.obterPerguntasTeste(id));
     }
 
     @GetMapping("/{id}")

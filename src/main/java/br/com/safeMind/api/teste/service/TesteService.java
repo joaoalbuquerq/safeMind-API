@@ -1,6 +1,8 @@
 package br.com.safeMind.api.teste.service;
 
 import br.com.safeMind.api.comon.exception.RecursoNaoEncontradoException;
+import br.com.safeMind.api.pergunta.model.Pergunta;
+import br.com.safeMind.api.pergunta.repository.PerguntaRepository;
 import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
 import br.com.safeMind.api.teste.dto.TesteAtualizacaoDTO;
 import br.com.safeMind.api.teste.model.Teste;
@@ -20,6 +22,9 @@ public class TesteService {
 
     @Autowired
     TesteRepository testeRepository;
+
+    @Autowired
+    PerguntaRepository perguntaRepository;
 
     public Teste criar(DadosCadastroTesteDTO dto) {
         var teste = new Teste(dto);
@@ -45,5 +50,9 @@ public class TesteService {
 
     public void deletar(UUID id) {
         testeRepository.delete(pesquisarPorId(id));
+    }
+
+    public List<Pergunta> obterPerguntasTeste(UUID id) {
+        return perguntaRepository.findByTesteId(id);
     }
 }
