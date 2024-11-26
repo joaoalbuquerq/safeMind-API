@@ -1,6 +1,7 @@
 package br.com.safeMind.api.teste.controller;
 
 import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
+import br.com.safeMind.api.teste.dto.TesteAtualizacaoDTO;
 import br.com.safeMind.api.teste.model.Teste;
 import br.com.safeMind.api.teste.service.TesteService;
 import jakarta.validation.Valid;
@@ -32,5 +33,16 @@ public class TesteController {
     @GetMapping("/{id}")
     public ResponseEntity<Teste> pesquisarPorId(@PathVariable UUID id){
         return ResponseEntity.ok(testeService.pesquisarPorId(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Teste> atualizar(@PathVariable UUID id, @RequestBody TesteAtualizacaoDTO dto){
+        return ResponseEntity.ok(testeService.atualizar(id, dto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> remover(@PathVariable UUID id){
+        testeService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
