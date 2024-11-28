@@ -31,7 +31,7 @@ public class RespostaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Resposta> buscar(@PathVariable UUID id){
-        return ResponseEntity.ok(respostaService.buscarPorId(id))
+        return ResponseEntity.ok(respostaService.buscarPorId(id));
     }
 
     @PutMapping("/{id}")
