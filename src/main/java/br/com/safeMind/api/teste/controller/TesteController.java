@@ -1,6 +1,7 @@
 package br.com.safeMind.api.teste.controller;
 
 import br.com.safeMind.api.pergunta.model.Pergunta;
+import br.com.safeMind.api.respostaPerguntaTeste.dto.DadosCadastroRespostaTesteDTO;
 import br.com.safeMind.api.teste.dto.DadosCadastroTesteDTO;
 import br.com.safeMind.api.teste.dto.TesteAtualizacaoDTO;
 import br.com.safeMind.api.teste.model.Teste;
@@ -50,5 +51,10 @@ public class TesteController {
     public ResponseEntity<Void> remover(@PathVariable UUID id){
         testeService.deletar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/responder")
+    public ResponseEntity<?> responderTeste(@RequestBody @Valid DadosCadastroRespostaTesteDTO dto){
+        return ResponseEntity.ok(testeService.responderTeste(dto));
     }
 }
