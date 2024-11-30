@@ -55,6 +55,7 @@ public class TesteController {
 
     @PostMapping("/responder")
     public ResponseEntity<?> responderTeste(@RequestBody @Valid DadosCadastroRespostaTesteDTO dto){
-        return ResponseEntity.ok(testeService.responderTeste(dto));
+        testeService.responderTeste(dto);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Teste respondido com sucesso!");
     }
 }

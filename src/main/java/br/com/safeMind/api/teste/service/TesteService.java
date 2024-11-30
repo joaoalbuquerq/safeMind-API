@@ -74,7 +74,7 @@ public class TesteService {
         return perguntaRepository.findByTesteId(id);
     }
 
-    public Object responderTeste(@Valid DadosCadastroRespostaTesteDTO dto) {
+    public void responderTeste(@Valid DadosCadastroRespostaTesteDTO dto) {
 
         var teste = pesquisarPorId(dto.testeId());
         var usuario =usuarioService.pesquisarPorId(dto.usuarioId());
@@ -86,7 +86,6 @@ public class TesteService {
             var respostaPergunta = new RespostaPerguntaTeste(teste,usuario,pergunta,resposta);
             respostaTesteRepository.save(respostaPergunta);
         }
-        return null;
     }
 
 }
