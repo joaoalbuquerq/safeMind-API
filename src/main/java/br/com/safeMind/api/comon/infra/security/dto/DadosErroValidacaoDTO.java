@@ -1,4 +1,4 @@
-package br.com.safeMind.api.comon.infra;
+package br.com.safeMind.api.comon.infra.security.dto;
 
 import org.springframework.validation.FieldError;
 

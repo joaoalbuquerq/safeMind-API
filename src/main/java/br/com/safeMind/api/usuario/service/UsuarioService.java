@@ -48,4 +48,8 @@ public class UsuarioService {
     public Usuario pesquisarPorCpf(String cpf) {
         return usuarioRepository.findByCpf(cpf).orElseThrow(() -> new RecursoNaoEncontradoException("CPF inexistente"));
     }
+
+    public Usuario pesquisarPorUsuario(String usuario){
+        return usuarioRepository.findByLogin(usuario).orElseThrow(() -> new RecursoNaoEncontradoException("Usuário inexistente"));
+    }
 }

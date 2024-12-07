@@ -25,6 +25,9 @@ public class Usuario {
     private LocalDateTime dataCriacao;
     private LocalDateTime ultimaAlteracao;
 
+    private String login;
+    private String senha;
+
     public Usuario(){
         super();
     }
@@ -92,6 +95,22 @@ public class Usuario {
 
     public void setUltimaAlteracao(LocalDateTime ultimaAlteracao) {
         this.ultimaAlteracao = ultimaAlteracao;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public void atualizarDados(UsuarioAtualizacaoDTO dto) {

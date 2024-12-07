@@ -1,7 +1,7 @@
-package br.com.safeMind.api.comon.infra;
+package br.com.safeMind.api.comon.infra.controller;
 
 import br.com.safeMind.api.comon.exception.RecursoNaoEncontradoException;
-import jakarta.persistence.EntityNotFoundException;
+import br.com.safeMind.api.comon.infra.security.dto.DadosErroValidacaoDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
