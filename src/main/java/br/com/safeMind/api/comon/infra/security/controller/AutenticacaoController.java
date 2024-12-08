@@ -39,14 +39,13 @@ public class AutenticacaoController {
 
     @PostMapping("/registrar")
     public ResponseEntity<?> registrar(@RequestBody @Valid UsuarioCadastroDTO dto){
-        var usuario = usuarioService.pesquisarPorCpf(dto.cpf());
 
-        if(usuario == null){
+
             var user = usuarioService.cadastrar(dto);
             String token = tokenService.gerarTokenAutenticacao(user);
             return ResponseEntity.ok(new LoginResponseDTO(user.getLogin(), token));
-        }
 
-        return ResponseEntity.badRequest().body("Usuario inexistente");
+
+
     }
 }
