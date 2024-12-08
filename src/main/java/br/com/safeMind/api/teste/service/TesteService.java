@@ -16,6 +16,7 @@ import br.com.safeMind.api.usuario.service.UsuarioService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class TesteService {
     @Autowired
     RespostaService respostaService;
 
+    @Lazy
     @Autowired
     PerguntaService perguntaService;
 

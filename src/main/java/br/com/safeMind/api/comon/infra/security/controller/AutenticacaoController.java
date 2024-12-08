@@ -7,6 +7,7 @@ import br.com.safeMind.api.usuario.dto.UsuarioCadastroDTO;
 import br.com.safeMind.api.usuario.model.Usuario;
 import br.com.safeMind.api.usuario.service.UsuarioService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AutenticacaoController {
 
-    @Autowired
-    UsuarioService usuarioService;
-
-    @Autowired
-    PasswordEncoder encoder;
-
-    @Autowired
-    TokenService tokenService;
+    private final UsuarioService usuarioService;
+    private final PasswordEncoder encoder;
+    private final TokenService tokenService;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO dto){

@@ -17,19 +17,17 @@ public class RespostaPerguntaTeste {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Id
+
     @ManyToOne
     @JoinColumn(name = "usuario_id", referencedColumnName = "id")
     @JsonIgnore
     private Usuario usuario;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "teste_id", referencedColumnName = "id")
     @JsonIgnore
     private Teste teste;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "pergunta_id", referencedColumnName = "id")
     @JsonIgnore
